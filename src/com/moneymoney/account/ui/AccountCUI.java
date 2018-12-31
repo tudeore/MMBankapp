@@ -83,6 +83,7 @@ public class AccountCUI {
 			break;
 		case 12:
 			acceptCurrentAccount("CA");
+			break;
 		default:
 			System.err.println("Invalid Choice!");
 			break;
@@ -102,14 +103,23 @@ public class AccountCUI {
 			if(!accountBalanceStr.equalsIgnoreCase("na")) {
 				accountBalance = Double.parseDouble(accountBalanceStr);
 			}
+			
 			createNewCurrentAccount(accountHolderName,accountBalance);
+		
 		}
 	}
 
 	
 
 	private static void createNewCurrentAccount(String accountHolderName, double accountBalance) {
-		currentAccountService.createNewCurrentAccount(accountHolderName, accountBalance);
+		try {
+		
+			currentAccountService.createNewCurrentAccount(accountHolderName, accountBalance);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {	
+			e.printStackTrace();
+		}
 	}
 
 	private static void checkCurrentBalance() {
@@ -148,7 +158,6 @@ public class AccountCUI {
 				searchAccount = savingsAccountService.searchAccount(name,choice);
 				System.out.println(searchAccount);
 			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			break;

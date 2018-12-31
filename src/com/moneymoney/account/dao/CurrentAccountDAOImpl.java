@@ -22,8 +22,8 @@ public class CurrentAccountDAOImpl implements CurrentAccountDAO {
 		preparedStatement.setString(2, account.getBankAccount().getAccountHolderName());
 		preparedStatement.setDouble(3, account.
 				getBankAccount().getAccountBalance());
-		preparedStatement.setDouble(4, account.odLimit());
-		preparedStatement.setObject(5, null);
+		preparedStatement.setObject(4, null);
+		preparedStatement.setDouble(5, account.odLimit());
 		preparedStatement.setString(6, "CA");
 		preparedStatement.executeUpdate();
 		preparedStatement.close();

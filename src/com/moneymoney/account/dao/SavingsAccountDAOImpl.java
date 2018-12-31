@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.moneymoney.account.SavingsAccount;
-import com.moneymoney.account.ui.AccountCUI;
 import com.moneymoney.account.util.DBUtil;
 import com.moneymoney.exception.AccountNotFoundException;
 
@@ -77,10 +76,10 @@ public class SavingsAccountDAOImpl implements SavingsAccountDAO {
 		throw new AccountNotFoundException("Account with account number "+accountNumber+" does not exist.");
 	}
 	
-	public SavingsAccount updateAccount(SavingsAccount account) {
+	/*public SavingsAccount updateAccount(SavingsAccount account) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}*/
 
 	
 

@@ -2,16 +2,17 @@ package com.moneymoney.account;
 
 public class CurrentAccount {
 
-	private double odLimit;
+	private static double odLimit = 5000;
 	private BankAccount bankAccount;
 
 	public CurrentAccount(String accountHolderName, double accountBalance, double odLimit) {
+		System.out.println(accountHolderName);
+		System.out.println(accountBalance);
 		bankAccount = new BankAccount(accountHolderName, accountBalance);
 		this.odLimit = odLimit;
 	}
-	public CurrentAccount(String accountHolderName, double odLimit) {
-		bankAccount = new BankAccount(accountHolderName);
-		this.odLimit = odLimit;
+	public CurrentAccount(String accountHolderName, double accountBalance) {
+		bankAccount = new BankAccount(accountHolderName,accountBalance);
 	}
 
 	public CurrentAccount(int accountNumber, String accountHolderName, double accountBalance, double odLimit) {

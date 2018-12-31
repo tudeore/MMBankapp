@@ -20,6 +20,7 @@ public final class AccountFactory {
 	}
 
 	public CurrentAccount createNewCurrentAccount(String accountHolderName, double accountBalance) {
+		System.out.println(accountBalance);
 		return new CurrentAccount(accountHolderName,accountBalance);
 	}
 }

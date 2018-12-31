@@ -9,7 +9,6 @@ import com.moneymoney.exception.AccountNotFoundException;
 public interface CurrentAccountDAO {
 
 	public CurrentAccount createNewAccount(CurrentAccount account) throws SQLException, ClassNotFoundException;
-
 	CurrentAccount getAccountById(int accountNumber)
 			throws ClassNotFoundException, SQLException, AccountNotFoundException;
 
