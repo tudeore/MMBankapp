@@ -28,6 +28,8 @@ public interface SavingsAccountService {
 
 	List<SavingsAccount> searchAccountBySalary(int minSalary, int maxSalary) throws ClassNotFoundException, SQLException;
 
+	List<SavingsAccount> sortAccount( int choice, int choice2) throws ClassNotFoundException, SQLException;
+
 	
 }
 

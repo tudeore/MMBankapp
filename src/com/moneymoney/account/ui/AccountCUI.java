@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import com.moneymoney.account.SavingsAccount;
+import com.moneymoney.account.service.CurrentAccountService;
+import com.moneymoney.account.service.CurrentAccountServiceImpl;
 import com.moneymoney.account.service.SavingsAccountService;
 import com.moneymoney.account.service.SavingsAccountServiceImpl;
 import com.moneymoney.account.util.DBUtil;
@@ -13,6 +15,7 @@ import com.moneymoney.exception.AccountNotFoundException;
 public class AccountCUI {
 	private static Scanner scanner = new Scanner(System.in);
 	private static SavingsAccountService savingsAccountService=new SavingsAccountServiceImpl();
+	private static CurrentAccountService currentAccountService = new CurrentAccountServiceImpl();
 	public static void start() {
 		
 		do {
@@ -28,9 +31,9 @@ public class AccountCUI {
 			System.out.println("9. Get All Savings Account Details");
 			System.out.println("10. Sort Accounts");
 			System.out.println("11. Exit");
-			System.out.println();
+			System.out.println("12.Open New Current Account");
 			System.out.println("Make your choice: ");
-			
+	
 			int choice = scanner.nextInt();
 			
 			performOperation(choice);
@@ -52,9 +55,6 @@ public class AccountCUI {
 		case 4:
 			searchAccount();
 			break;
-		case 9:
-			showAllAccounts();
-			break;
 		case 5:
 			withdraw();
 			break;
@@ -67,6 +67,9 @@ public class AccountCUI {
 		case 8:
 			checkCurrentBalance();
 			break;
+		case 9:
+			showAllAccounts();
+			break;
 		case 10:
 			sortMenu();
 			break;
@@ -78,11 +81,35 @@ public class AccountCUI {
 			}
 			System.exit(0);
 			break;
+		case 12:
+			acceptCurrentAccount("CA");
 		default:
 			System.err.println("Invalid Choice!");
 			break;
 		}
 		
+	}
+
+	private static void acceptCurrentAccount(String type) {
+
+		if(type.equalsIgnoreCase("CA")) {
+			System.out.println("Enter your Full Name: ");
+			String accountHolderName = scanner.nextLine();
+			accountHolderName = scanner.nextLine();
+			System.out.println("Enter Initial Balance(type na for Zero Balance): ");
+			String accountBalanceStr = scanner.next();
+			double accountBalance=0.0;
+			if(!accountBalanceStr.equalsIgnoreCase("na")) {
+				accountBalance = Double.parseDouble(accountBalanceStr);
+			}
+			createNewCurrentAccount(accountHolderName,accountBalance);
+		}
+	}
+
+	
+
+	private static void createNewCurrentAccount(String accountHolderName, double accountBalance) {
+		currentAccountService.createNewCurrentAccount(accountHolderName, accountBalance);
 	}
 
 	private static void checkCurrentBalance() {
@@ -106,8 +133,7 @@ public class AccountCUI {
 		
 	}
 
-	private static void searchAccount() {
-		System.out.println("1.search account by name");
+	private static void searchAccount() {;
 		System.out.println("2.search account by accountId");
 		System.out.println("3.search account by account Balance ");
 		int choice = scanner.nextInt();
@@ -303,11 +329,49 @@ public class AccountCUI {
 			System.out.println("4. Exit from Sorting");
 			
 			int choice = scanner.nextInt();
+			if(choice >0 && choice <4) {
+			System.out.println("1.Sort by Asending Order");
+			System.out.println("2.Sort by Desending Order");
+			int choice2 = scanner.nextInt();
 			switch(choice){
 			case 1:
-			//	list<SavingsAccount>listSortByAccountNumber = savingsAccountService
+				try {
+					
+					List<SavingsAccount> listSortByAccountNumber = savingsAccountService.sortAccount(choice,choice2);
+					System.out.println("******Sorted List***********");
+					System.out.println(listSortByAccountNumber);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 2 :
+				List<SavingsAccount> listSortByAccountHolderName;
+				try {
+					listSortByAccountHolderName = savingsAccountService.sortAccount(choice, choice2);
+					System.out.println("******Sorted List***********");
+					System.out.println(listSortByAccountHolderName);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			case 3:
+				List<SavingsAccount> listSortByAccountBalance;
+				try {
+					listSortByAccountHolderName = savingsAccountService.sortAccount(choice, choice2);
+					System.out.println("******Sorted List***********");
+					System.out.println(listSortByAccountHolderName);
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
 			}
-			
+			}
+			else break;
+		
+		 
 		}while(true);
 		
 	}

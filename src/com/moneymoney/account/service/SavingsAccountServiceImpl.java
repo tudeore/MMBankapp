@@ -105,4 +105,10 @@ public class SavingsAccountServiceImpl implements SavingsAccountService {
 		return savingsAccountDAO.searchAccountBySalary(minSalary,maxSalary);
 	}
 
+	@Override
+	public List<SavingsAccount> sortAccount(int choice,int choice2) throws ClassNotFoundException, SQLException {
+		return savingsAccountDAO.sortAccount(choice,choice2);
+	}
+	
+
 }
